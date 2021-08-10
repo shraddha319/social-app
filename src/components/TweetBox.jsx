@@ -2,9 +2,9 @@ import { Avatar, IconButton, Button } from './shared';
 import { ImageIcon, EmojiIcon } from './shared/icons';
 import avatar from '../assets/avatar.jpeg';
 
-export default function TweetBox() {
+export default function TweetBox({ styles }) {
   return (
-    <div className="flex">
+    <div className={`flex ${styles}`}>
       <div className="p-3">
         <Avatar src={avatar} alt="shraddha" size="medium" />
       </div>
