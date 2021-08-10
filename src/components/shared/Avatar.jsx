@@ -27,7 +27,7 @@ export const Avatar = styled.img(({ size }) => [
 export const FallbackAvatar = styled.div(({ size }) => {
   const index = Math.trunc(Math.random() * bg.length - 1);
   return [
-    tw`rounded-full flex justify-center items-center text-white cursor-default`,
+    tw`rounded-full flex justify-center items-center text-white cursor-default uppercase`,
     twAvatar.size[size],
     bg[index],
   ];
