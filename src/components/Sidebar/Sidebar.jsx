@@ -10,7 +10,7 @@ import {
 } from '../shared/icons';
 
 const StyledSidebar = styled.div`
-  ${tw`h-full bg-white rounded py-2 px-4 space-y-4`}
+  ${tw`h-full bg-white rounded py-2 px-4 pr-12 space-y-4`}
 `;
 
 const Navbar = styled.nav``;
