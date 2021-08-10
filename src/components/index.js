@@ -1,4 +1,4 @@
 import Sidebar from './Sidebar/Sidebar';
 import TweetBox from './TweetBox';
-
-export { Sidebar, TweetBox };
+import Post from './Post';
+export { Sidebar, TweetBox, Post };

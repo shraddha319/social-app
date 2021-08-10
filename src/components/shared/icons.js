@@ -6,11 +6,14 @@ import {
   AiOutlineHome as HomeIcon,
   AiOutlineMail as MailIcon,
   AiOutlineUser as UserIcon,
+  AiOutlineHeart as HeartIcon,
+  AiOutlineShareAlt as ShareIcon,
 } from 'react-icons/ai';
 
 import { IoImageOutline as ImageIcon } from 'react-icons/io5';
 
 import { GrEmoji as EmojiIcon } from 'react-icons/gr';
+import { VscComment as CommentIcon } from 'react-icons/vsc';
 
 export {
   NotificationsIcon,
@@ -20,4 +23,7 @@ export {
   UserIcon,
   ImageIcon,
   EmojiIcon,
+  HeartIcon,
+  CommentIcon,
+  ShareIcon,
 };
