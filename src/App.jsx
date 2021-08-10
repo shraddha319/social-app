@@ -6,14 +6,14 @@ import { Home } from './pages';
 import './App.css';
 
 const Layout = styled.div`
-  ${tw`max-w-max h-full mx-auto border-2 grid grid-cols-4`}
+  ${tw`max-w-max h-full mx-auto grid grid-cols-4`}
 `;
 
 export default function App() {
   return (
     <Layout>
       <Sidebar styles="col-span-1" />
-      <div className="col-span-2 border-2 border-red-500 overflow-y-scroll no-scrollbar">
+      <div className="col-span-2 overflow-y-scroll no-scrollbar">
         <Routes>
           <Route path="/" element={<Home />} />
         </Routes>
