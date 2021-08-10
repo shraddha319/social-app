@@ -27,6 +27,7 @@ const twIconButton = {
   variant: {
     primary: tw`text-blue-500 hover:bg-blue-100`,
     secondary: tw`text-red-500 hover:bg-red-100`,
+    action: tw`text-gray-500 hover:(text-blue-500 bg-blue-100)`,
     disabled: tw`text-gray-400 disabled:opacity-50`,
   },
   size: {

@@ -1,6 +1,6 @@
-import { IconContext } from 'react-icons';
 import styled from 'styled-components';
 import tw from 'twin.macro';
+import { IconContext } from 'react-icons';
 import { twSize, twColor } from './theme';
 
 function IconProvider({ children, props }) {
