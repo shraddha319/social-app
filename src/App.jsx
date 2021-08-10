@@ -6,7 +6,7 @@ import { Home } from './pages';
 import './App.css';
 
 const Layout = styled.div`
-  ${tw`max-w-max h-full mx-auto grid grid-cols-4`}
+  ${tw`w-3/5 h-full mx-auto grid grid-cols-4`}
 `;
 
 export default function App() {
