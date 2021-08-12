@@ -24,7 +24,7 @@ export const Icon = ({ className, children }) => {
 };
 
 export const StyledIcon = styled(Icon)(({ size, color }) => [
-  tw`block text-center transition-colors duration-500 ease-in-out`,
-  twSize[size],
-  twColor[color],
+  tw`block text-center transition-colors duration-100 ease-in-out`,
+  size && twSize[size],
+  color && twColor[color],
 ]);
