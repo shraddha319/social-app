@@ -14,6 +14,12 @@ export const twSize = {
 export const twColor = {
   primary: tw`text-blue-500`,
   secondary: tw`text-red-500`,
-  action: tw`text-gray-500`,
+  action: tw`text-gray-600`,
   disabled: tw`text-gray-500`,
+  error: tw`text-red-400`,
+  warning: tw`text-yellow-400`,
+  success: tw`text-green-400`,
+  info: tw`text-blue-400`,
+  textPrimary: tw`text-gray-900`,
+  textSecondary: tw`text-gray-600`,
 };
