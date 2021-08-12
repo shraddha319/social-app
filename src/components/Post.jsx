@@ -4,7 +4,7 @@ import {
   ShareIcon,
   BookmarkIcon,
   CommentIcon,
-} from './shared/icons';
+} from '../assets/icons';
 
 export default function Post({ user, content, stats }) {
   return (

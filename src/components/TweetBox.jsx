@@ -1,5 +1,5 @@
 import { Avatar, IconButton, Button } from './shared';
-import { ImageIcon, EmojiIcon } from './shared/icons';
+import { ImageIcon, EmojiIcon } from '../assets/icons';
 import avatar from '../assets/avatar.jpeg';
 
 export default function TweetBox({ styles }) {
