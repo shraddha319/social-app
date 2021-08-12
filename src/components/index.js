@@ -1,4 +1,36 @@
-import Sidebar from './Sidebar/Sidebar';
+import Sidebar from './Sidebar';
 import TweetBox from './TweetBox';
 import Post from './Post';
-export { Sidebar, TweetBox, Post };
+
+import {
+  StyledIcon,
+  Button,
+  IconButton,
+  IconLabelButton,
+  Avatar,
+  FallbackAvatar,
+  Typography,
+  Modal,
+  ListX,
+  ListItem,
+  ListItemLink,
+  StyledLink,
+} from './shared';
+
+export {
+  Sidebar,
+  TweetBox,
+  Post,
+  StyledIcon,
+  Button,
+  IconLabelButton,
+  IconButton,
+  Avatar,
+  FallbackAvatar,
+  Typography,
+  Modal,
+  ListX,
+  ListItem,
+  ListItemLink,
+  StyledLink,
+};
