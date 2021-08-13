@@ -1,6 +1,4 @@
 import { TweetBox, Post } from '../components';
-import styled from 'styled-components';
-import tw from 'twin.macro';
 
 const posts = [
   {
