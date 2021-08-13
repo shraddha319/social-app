@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import tw from 'twin.macro';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import { Sidebar } from './components';
+import { Sidebar, Posts } from './components';
 import { IconButton } from './components';
 import { Home, User } from './pages';
 import { ArrowBack } from './assets/icons';
@@ -36,7 +36,12 @@ export default function App() {
         </TopBar>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/profile/" element={<User />} />
+          <Route path="/profile" element={<User />}>
+            <Route path="" element={<Posts />} />
+            <Route path="media" element={<Posts />} />
+            <Route path="likes" element={<Posts />} />
+            <Route path="bookmarks" element={<Posts />} />
+          </Route>
         </Routes>
       </div>
       <div className="col-span-1">Side</div>
