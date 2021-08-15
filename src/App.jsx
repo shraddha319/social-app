@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import tw from 'twin.macro';
-import { Routes, Route, useLocation } from 'react-router-dom';
-import { Sidebar, Posts } from './components';
+import { Routes, Route, useLocation, Router } from 'react-router-dom';
+import { Sidebar, Posts, Modal } from './components';
 import { IconButton } from './components';
 import { Home, User } from './pages';
 import { ArrowBack } from './assets/icons';
@@ -17,34 +17,39 @@ const TopBar = styled.div`
 `;
 
 export default function App() {
-  const { pathname } = useLocation();
+  const location = useLocation();
+
   return (
-    <Layout>
-      <Sidebar styles="col-span-1" />
-      <div className="col-span-2 overflow-y-scroll no-scrollbar">
-        <TopBar>
-          {pathname !== '/' && (
-            <>
-              <IconButton variant="primary" size="small">
-                <ArrowBack />
-              </IconButton>
-              <p>
-                {pathname.slice(1).charAt(0).toUpperCase() + pathname.slice(2)}
-              </p>
-            </>
-          )}
-        </TopBar>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/profile" element={<User />}>
-            <Route path="" element={<Posts />} />
-            <Route path="media" element={<Posts />} />
-            <Route path="likes" element={<Posts />} />
-            <Route path="bookmarks" element={<Posts />} />
-          </Route>
-        </Routes>
-      </div>
-      <div className="col-span-1">Side</div>
-    </Layout>
+    <>
+      <Layout>
+        <Sidebar styles="col-span-1" />
+        <div className="col-span-2 overflow-y-scroll no-scrollbar">
+          <TopBar>
+            {location.pathname !== '/' && (
+              <>
+                <IconButton variant="primary" size="small">
+                  <ArrowBack />
+                </IconButton>
+                <p>
+                  {location.pathname.slice(1).charAt(0).toUpperCase() +
+                    location.pathname.slice(2)}
+                </p>
+              </>
+            )}
+          </TopBar>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/profile" element={<User />}>
+              <Route path="" element={<Posts />} />
+              <Route path="media" element={<Posts />} />
+              <Route path="likes" element={<Posts />} />
+              <Route path="bookmarks" element={<Posts />} />
+            </Route>
+          </Routes>
+          <Route path="/" element={<Modal />} />
+        </div>
+        <div className="col-span-1">Side</div>
+      </Layout>
+    </>
   );
 }

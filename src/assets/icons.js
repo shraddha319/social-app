@@ -18,6 +18,7 @@ import { GrEmoji as EmojiIcon } from 'react-icons/gr';
 import {
   VscComment as CommentIcon,
   VscLocation as LocationIcon,
+  VscClose as CloseIcon,
 } from 'react-icons/vsc';
 
 export {
@@ -34,4 +35,5 @@ export {
   ArrowBack,
   LocationIcon,
   LinkIcon,
+  CloseIcon,
 };

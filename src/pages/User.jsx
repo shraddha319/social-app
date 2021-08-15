@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, Link } from 'react-router-dom';
 import {
   Avatar,
   Button,
@@ -8,42 +8,6 @@ import {
   ListItemLink,
 } from '../components';
 import { LocationIcon, LinkIcon } from '../assets/icons';
-
-const posts = [
-  {
-    user: {
-      name: 'Shraddha',
-      username: 'shraddha319',
-      imageUrl:
-        'https://fiverr-res.cloudinary.com/images/q_auto,f_auto/gigs/164582072/original/1826802722e229166f737070f8c912e8abbc608b/design-your-roblox-avatar-logo.png',
-    },
-    content: {
-      text: "The Internet's own boy",
-      imageUrl:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2KcuaRV3w7qWIjCjU8Feke1lTRVk5g6AFvA&usqp=CAU',
-    },
-    stats: {
-      likes: 12,
-      comments: 3,
-    },
-  },
-  {
-    user: {
-      name: 'Tanmay',
-      username: 'tanmay319',
-      imageUrl: null,
-    },
-    content: {
-      text: 'Harry Potter',
-      imageUrl:
-        'https://i.pinimg.com/originals/49/da/d6/49dad62e939773d71b4f4381d8fb1e72.jpg',
-    },
-    stats: {
-      likes: 125,
-      comments: 3,
-    },
-  },
-];
 
 const user = {
   name: 'Shraddha',
@@ -74,9 +38,11 @@ export default function User() {
       </div>
       <div className="flex justify-between items-end py-4 px-4 absolute right-0 left-0 top-28">
         <Avatar src={user.imageUrl} size="xl3" border />
-        <Button size="tiny" variant="outlinePrimary" rounded>
-          Edit profile
-        </Button>
+        <Link to={{ search: '?action=edit' }}>
+          <Button as="div" size="tiny" variant="outlinePrimary" rounded>
+            Edit profile
+          </Button>
+        </Link>
       </div>
       <div className="mt-14 py-2 px-4 text-gray-900 space-y-2">
         <p className="space-x-2">
