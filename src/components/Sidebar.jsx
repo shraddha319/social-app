@@ -60,7 +60,7 @@ export default function Sidebar({ styles }) {
       <Navbar>
         <List>
           <ListItem>
-            <ListItemLink to="/" end activeClassName="selected">
+            <ListItemLink to="/feed" end activeClassName="selected">
               <IconLabelButton as="div">
                 <StyledIcon size="xl3">
                   <HomeIcon />
