@@ -14,15 +14,16 @@ const twTypography = {
     block: tw`block`,
   },
   variant: {
-    h1: tw`text-8xl font-light leading-tight tracking-wide`,
-    h2: tw`text-6xl	font-light leading-tight tracking-wide	`,
-    h3: tw`text-5xl font-normal leading-tight tracking-wide	`,
-    h4: tw`text-4xl	font-normal leading-tight tracking-wide	`,
-    h5: tw`text-2xl	font-normal leading-tight tracking-wide	`,
+    h1: tw`text-8xl font-medium leading-tight tracking-wide`,
+    h2: tw`text-6xl	font-medium leading-tight tracking-wide	`,
+    h3: tw`text-5xl font-medium leading-tight tracking-wide	`,
+    h4: tw`text-4xl	font-medium leading-tight tracking-wide	`,
+    h5: tw`text-2xl	font-medium leading-tight tracking-wide	`,
     h6: tw`text-xl	font-medium leading-normal tracking-wide	`,
     subtitle: tw`text-base font-normal leading-relaxed tracking-wide`,
     body: tw`text-base font-normal leading-normal`,
     label: tw`font-semibold`,
+    small: tw`font-light text-xs`,
   },
 };
 
