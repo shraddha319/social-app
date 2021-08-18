@@ -2,6 +2,8 @@ import Sidebar from './Sidebar';
 import TweetBox from './TweetBox';
 import Post from './Post';
 import Posts from './Posts';
+import Notification from './Notification';
+import EditProfile from './EditProfile';
 
 import {
   StyledIcon,
@@ -16,6 +18,7 @@ import {
   ListItem,
   ListItemLink,
   StyledLink,
+  Input,
 } from './shared';
 
 export {
@@ -34,5 +37,8 @@ export {
   ListItem,
   ListItemLink,
   StyledLink,
+  Input,
   Posts,
+  Notification,
+  EditProfile,
 };

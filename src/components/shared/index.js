@@ -5,6 +5,7 @@ import { Typography } from './Typography';
 import { Modal } from './Modal';
 import { ListX, ListItem, ListItemLink } from './List';
 import { StyledLink } from './Link';
+import { Input, TextArea } from './Input';
 
 export {
   Icon,
@@ -20,4 +21,6 @@ export {
   ListItem,
   ListItemLink,
   StyledLink,
+  Input,
+  TextArea,
 };

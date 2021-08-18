@@ -10,6 +10,7 @@ import {
   AiOutlineHeart as HeartIcon,
   AiOutlineShareAlt as ShareIcon,
   AiOutlineLink as LinkIcon,
+  AiOutlineCamera as CameraIcon,
 } from 'react-icons/ai';
 
 import { IoImageOutline as ImageIcon } from 'react-icons/io5';
@@ -36,4 +37,5 @@ export {
   LocationIcon,
   LinkIcon,
   CloseIcon,
+  CameraIcon,
 };

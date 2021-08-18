@@ -1,4 +1,9 @@
+import Feed from './Feed';
+import Profile from './Profile';
+import Notifications from './Notifications';
+import Bookmarks from './Boomarks';
 import Home from './Home';
-import User from './User';
+import Login from './Login';
+import Signup from './Signup';
 
-export { Home, User };
+export { Feed, Profile, Notifications, Bookmarks, Home, Login, Signup };
