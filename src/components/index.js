@@ -4,6 +4,7 @@ import Post from './Post';
 import Posts from './Posts';
 import Notification from './Notification';
 import EditProfile from './EditProfile';
+import ComposeTweet from './ComposeTweet';
 
 import {
   StyledIcon,
@@ -41,4 +42,5 @@ export {
   Posts,
   Notification,
   EditProfile,
+  ComposeTweet,
 };

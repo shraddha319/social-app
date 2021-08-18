@@ -1,7 +1,13 @@
 import styled from 'styled-components';
 import tw from 'twin.macro';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
-import { Sidebar, Posts, IconButton, EditProfile } from './components';
+import {
+  Sidebar,
+  Posts,
+  IconButton,
+  EditProfile,
+  ComposeTweet,
+} from './components';
 import {
   Feed,
   Profile,
@@ -70,6 +76,9 @@ export default function App() {
           </Routes>
           {query.get('action') === 'edit' && (
             <Route path="/" element={<EditProfile />} />
+          )}
+          {query.get('action') === 'compose_tweet' && (
+            <Route path="/" element={<ComposeTweet />} />
           )}
         </Main>
         <div className="col-span-1">Side</div>

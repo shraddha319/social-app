@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import tw from 'twin.macro';
+import { Link, useLocation } from 'react-router-dom';
 import {
   StyledIcon,
   Typography,
@@ -50,6 +51,8 @@ const Logo = styled.div`
 `;
 
 export default function Sidebar({ styles }) {
+  const { pathname } = useLocation();
+
   return (
     <StyledSidebar className={styles}>
       <Logo>
@@ -111,9 +114,14 @@ export default function Sidebar({ styles }) {
           </ListItem>
         </List>
       </Navbar>
-      <Button variant="solidPrimary" size="base" rounded fullWidth>
-        Tweet
-      </Button>
+      <Link
+        to={{ pathname, search: '?action=compose_tweet' }}
+        className="block"
+      >
+        <Button variant="solidPrimary" size="base" rounded fullWidth>
+          Tweet
+        </Button>
+      </Link>
     </StyledSidebar>
   );
 }
