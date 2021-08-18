@@ -22,10 +22,11 @@ const bg = [
   tw`bg-pink-500`,
 ];
 
-export const Avatar = styled.img(({ size, border }) => [
+export const Avatar = styled.img(({ size, border, background }) => [
   tw`rounded-full object-cover`,
   twAvatar.size[size],
   border && tw`border-4 border-white`,
+  background && tw`filter brightness-75`,
 ]);
 
 export const FallbackAvatar = styled.div(({ size, border }) => {
