@@ -12,7 +12,8 @@ export const Modal = styled(Component)`
 
   & > div {
     width: 640px;
-    height: 640px;
+    height: auto;
+    max-height: 640px;
   }
 `;
 
