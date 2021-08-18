@@ -1,15 +1,26 @@
 import styled from 'styled-components';
 import tw from 'twin.macro';
-import { Routes, Route, useLocation, Router } from 'react-router-dom';
-import { Sidebar, Posts, Modal } from './components';
-import { IconButton } from './components';
-import { Home, User } from './pages';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import { Sidebar, Posts, IconButton, EditProfile } from './components';
+import {
+  Feed,
+  Profile,
+  Notifications,
+  Bookmarks,
+  Home,
+  Login,
+  Signup,
+} from './pages';
 import { ArrowBack } from './assets/icons';
 import './App.css';
 
-const Layout = styled.div`
-  ${tw`h-full mx-auto grid grid-cols-4`}
+const AppLayout = styled.div`
+  ${tw`mx-auto grid grid-cols-4`}
   width: 1200px;
+`;
+
+const Main = styled.div`
+  ${tw`col-span-2 h-full overflow-y-scroll `}
 `;
 
 const TopBar = styled.div`
@@ -18,16 +29,25 @@ const TopBar = styled.div`
 
 export default function App() {
   const location = useLocation();
+  const navigate = useNavigate();
+  const query = new URLSearchParams(useLocation().search);
 
   return (
-    <>
-      <Layout>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
+      <AppLayout>
         <Sidebar styles="col-span-1" />
-        <div className="col-span-2 overflow-y-scroll no-scrollbar">
+        <Main className="no-scrollbar">
           <TopBar>
-            {location.pathname !== '/' && (
+            {location.pathname !== '/feed' && (
               <>
-                <IconButton variant="primary" size="small">
+                <IconButton
+                  onClick={(e) => navigate(-1)}
+                  variant="primary"
+                  size="small"
+                >
                   <ArrowBack />
                 </IconButton>
                 <p>
@@ -38,18 +58,22 @@ export default function App() {
             )}
           </TopBar>
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/profile" element={<User />}>
+            <Route path="/feed" element={<Feed />} />
+            <Route path="/profile" element={<Profile />}>
               <Route path="" element={<Posts />} />
               <Route path="media" element={<Posts />} />
               <Route path="likes" element={<Posts />} />
               <Route path="bookmarks" element={<Posts />} />
             </Route>
+            <Route path="/notifications" element={<Notifications />} />
+            <Route path="/bookmarks" element={<Bookmarks />} />
           </Routes>
-          <Route path="/" element={<Modal />} />
-        </div>
+          {query.get('action') === 'edit' && (
+            <Route path="/" element={<EditProfile />} />
+          )}
+        </Main>
         <div className="col-span-1">Side</div>
-      </Layout>
-    </>
+      </AppLayout>
+    </Routes>
   );
 }
