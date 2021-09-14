@@ -10,6 +10,8 @@ export const loginUser = createAsyncThunk(
         data: { data },
       } = await login(user);
       dispatch(setUser(data));
+      localStorage.setItem('userId', data.user._id);
+      localStorage.setItem('token', data.authToken);
       return data;
     } catch (err) {
       if (!err.response) {
@@ -36,6 +38,11 @@ export const registerUser = createAsyncThunk(
   }
 );
 
+export const logoutUser = createAsyncThunk('user/logoutUser', () => {
+  localStorage.removeItem('token');
+  localStorage.removeItem('userId');
+});
+
 const authSlice = createSlice({
   name: 'user',
   initialState: {
@@ -43,7 +50,12 @@ const authSlice = createSlice({
     token: null,
     error: null,
   },
-  reducers: {},
+  reducers: {
+    setToken: (state, action) => {
+      state.status = 'success';
+      state.token = action.payload.token;
+    },
+  },
   extraReducers: {
     [registerUser.pending]: (state) => {
       state.status = 'loading';
@@ -68,7 +80,13 @@ const authSlice = createSlice({
         ? action.payload.error
         : action.error.message;
     },
+    [logoutUser.success]: (state, action) => {
+      state.status = 'idle';
+      state.error = null;
+      state.token = null;
+    },
   },
 });
 
+export const { setToken } = authSlice.actions;
 export default authSlice.reducer;
