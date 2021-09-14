@@ -10,13 +10,14 @@ const twButton = {
 };
 
 export const Button = styled.button(
-  ({ variant, size, fullWidth, rounded, overrides }) => [
+  ({ variant, size, fullWidth, rounded, overrides, disabled }) => [
     tw`px-4 py-2 tracking-wider font-semibold rounded transition-colors duration-100 ease-in-out`,
-    twButton[variant],
+    !disabled && twButton[variant],
     twSize[size],
     fullWidth && tw`w-full`,
     rounded && tw`rounded-full`,
     overrides,
+    disabled && tw`text-gray-400 bg-gray-100`,
   ]
 );
 
