@@ -53,9 +53,7 @@ const Logo = styled.div`
 
 export default function Sidebar({ styles }) {
   const { pathname } = useLocation();
-  const {
-    user: { username },
-  } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.user);
 
   return (
     <StyledSidebar className={styles}>
@@ -107,7 +105,11 @@ export default function Sidebar({ styles }) {
             </ListItemLink>
           </ListItem>
           <ListItem>
-            <ListItemLink end to={`/${username}`} activeClassName="selected">
+            <ListItemLink
+              end
+              to={`/${user?.username}`}
+              activeClassName="selected"
+            >
               <IconLabelButton as="div">
                 <StyledIcon size="xl3">
                   <UserIcon />
