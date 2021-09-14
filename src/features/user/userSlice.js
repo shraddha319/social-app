@@ -1,5 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { updateUser } from './userAPI';
+import { updateUser, getUser } from './userAPI';
+import { logoutUser, setToken } from '../auth/authSlice';
+import { useNavigate } from 'react-router-dom';
 
 export const updateProfile = createAsyncThunk(
   'user/updateProfile',
@@ -14,6 +16,27 @@ export const updateProfile = createAsyncThunk(
       await updateUser(_id, token, update);
       return update;
     } catch (err) {
+      if (!err.response) {
+        throw err;
+      }
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
+export const InitializeUser = createAsyncThunk(
+  'user/getUser',
+  async ({ userId, token }, { rejectWithValue, dispatch }) => {
+    try {
+      const {
+        data: { data },
+      } = await getUser(userId, token);
+      dispatch(setToken({ token }));
+      return data.user;
+    } catch (err) {
+      dispatch(logoutUser());
+      console.log(err, err.response);
+      useNavigate()('/');
       if (!err.response) {
         throw err;
       }
@@ -53,6 +76,13 @@ const userSlice = createSlice({
       state.error = action.payload
         ? action.payload.error
         : action.error.message;
+    },
+    [InitializeUser.pending]: (state) => {
+      state.status = 'loading';
+    },
+    [InitializeUser.fulfilled]: (state, action) => {
+      state.status = 'success';
+      state.user = action.payload;
     },
   },
 });
