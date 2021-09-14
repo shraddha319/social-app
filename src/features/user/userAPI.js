@@ -11,3 +11,11 @@ export const updateUser = (userId, token, update) => {
 export const getUserByUsername = (username) => {
   return axios.get(`http://localhost:3001/users?username=${username}`);
 };
+
+export const getUser = (userId, token) => {
+  return axios.get(`http://localhost:3001/users/${userId}`, {
+    headers: {
+      Authorization: token,
+    },
+  });
+};
