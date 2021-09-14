@@ -19,6 +19,9 @@ import {
 } from './pages';
 import { ArrowBack } from './assets/icons';
 import './App.css';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { InitializeUser } from './features/user/userSlice';
 
 const AppLayout = styled.div`
   ${tw`mx-auto grid grid-cols-4`}
@@ -37,6 +40,16 @@ export default function App() {
   const location = useLocation();
   const navigate = useNavigate();
   const query = new URLSearchParams(useLocation().search);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const userId = localStorage.getItem('userId');
+
+    if (userId && token) {
+      dispatch(InitializeUser({ userId, token }));
+    }
+  }, []);
 
   return (
     <Routes>
