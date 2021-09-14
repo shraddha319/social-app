@@ -6,24 +6,25 @@ import {
   CommentIcon,
 } from '../assets/icons';
 
-export default function Post({ user, content, stats }) {
+export default function Post({ user, content, likes, comments }) {
+  console.log(user, content, likes, comments);
   return (
     <div className="space-y-2 py-4">
       <div className="flex items-center px-2">
         <div className="px-2">
-          {user.imageUrl ? (
-            <Avatar src={user.imageUrl} alt="shraddha" size="small" />
+          {user?.imageUrl ? (
+            <Avatar src={user?.imageUrl} alt="shraddha" size="small" />
           ) : (
-            <FallbackAvatar size="small">{user.name[0]}</FallbackAvatar>
+            <FallbackAvatar size="small">{user.username[0]}</FallbackAvatar>
           )}
         </div>
         <div className="p-1">
           <p className="space-x-1">
             <a
-              href={`/user/${user.username}`}
+              href={`/${user.username}`}
               className="text-lg tracking-wide font-medium"
             >
-              {user.name}
+              {user?.name}
             </a>
             <span className="text-gray-500">{`@${user.username}`}</span>
           </p>
@@ -41,13 +42,13 @@ export default function Post({ user, content, stats }) {
           <IconButton size="medium" variant="primary">
             <HeartIcon />
           </IconButton>
-          <p className="label text-sm text-gray-500">{stats.likes}</p>
+          <p className="label text-sm text-gray-500">{likes.length}</p>
         </li>
         <li className="flex space-x-1 items-center">
           <IconButton size="medium" variant="primary">
             <CommentIcon />
           </IconButton>
-          <p className="label text-sm text-gray-500">{stats.comments}</p>
+          <p className="label text-sm text-gray-500">{comments.length}</p>
         </li>
         <li>
           <IconButton size="medium" variant="primary">
