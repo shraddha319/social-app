@@ -65,7 +65,7 @@ export default function App() {
           </TopBar>
           <Routes>
             <Route path="/feed" element={<Feed />} />
-            <Route path="/profile" element={<Profile />}>
+            <Route path="/:username" element={<Profile />}>
               <Route path="" element={<Posts />} />
               <Route path="media" element={<Posts />} />
               <Route path="likes" element={<Posts />} />

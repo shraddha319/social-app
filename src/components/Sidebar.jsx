@@ -16,6 +16,7 @@ import {
   BookmarkIcon,
   UserIcon,
 } from '../assets/icons';
+import { useSelector } from 'react-redux';
 
 const StyledSidebar = styled.div`
   ${tw`h-full bg-white py-2 px-4 space-y-4`}
@@ -52,6 +53,9 @@ const Logo = styled.div`
 
 export default function Sidebar({ styles }) {
   const { pathname } = useLocation();
+  const {
+    user: { username },
+  } = useSelector((state) => state.user);
 
   return (
     <StyledSidebar className={styles}>
@@ -103,7 +107,7 @@ export default function Sidebar({ styles }) {
             </ListItemLink>
           </ListItem>
           <ListItem>
-            <ListItemLink end to="/profile" activeClassName="selected">
+            <ListItemLink end to={`/${username}`} activeClassName="selected">
               <IconLabelButton as="div">
                 <StyledIcon size="xl3">
                   <UserIcon />
