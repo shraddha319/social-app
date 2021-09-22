@@ -1,21 +1,19 @@
-import axios from 'axios';
+import API from '../api.config';
 
-export const getPosts = (userId, token) => {
-  return axios.get(`http://localhost:3001/users/${userId}/posts`, {
-    headers: {
-      Authorization: token,
-    },
-  });
+export const getPosts = (userId) => {
+  return API.get(`/users/${userId}/posts`);
 };
 
-export const createPostAPI = (userId, token, post) => {
-  return axios.post(
-    `http://localhost:3001/users/${userId}/posts`,
-    { content: post },
-    {
-      headers: {
-        Authorization: token,
-      },
-    }
-  );
+export const getPost = (userId, postId) => {
+  return API.get(`/users/${userId}/posts/${postId}`);
+};
+
+export const createPost = (userId, post) => {
+  return API.post(`/users/${userId}/posts`, { content: post });
+};
+
+export const updatePost = ({ type, comment = null, postId, userId }) => {
+  const reqBody = { type };
+  if (comment) reqBody.comment = comment;
+  return API.post(`/users/${userId}/posts/${postId}`, reqBody);
 };
