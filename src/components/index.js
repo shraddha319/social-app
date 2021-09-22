@@ -5,6 +5,8 @@ import Posts from './Posts';
 import Notification from './Notification';
 import EditProfile from './EditProfile';
 import ComposeTweet from './ComposeTweet';
+import PrivateRoute from './PrivateRoute';
+import ScrollToTop from './ScrollToTop';
 
 import {
   StyledIcon,
@@ -20,6 +22,8 @@ import {
   ListItemLink,
   StyledLink,
   Input,
+  TextArea,
+  Loader,
 } from './shared';
 
 export {
@@ -39,8 +43,12 @@ export {
   ListItemLink,
   StyledLink,
   Input,
+  TextArea,
   Posts,
   Notification,
   EditProfile,
   ComposeTweet,
+  PrivateRoute,
+  Loader,
+  ScrollToTop,
 };
