@@ -42,17 +42,16 @@ import { useSelector, useDispatch } from 'react-redux';
 export default function Feed() {
   const {
     posts: { posts, status, error },
-    user: { status: userStatus },
+    user: { user },
   } = useSelector((state) => state);
   const dispatch = useDispatch();
-  console.log('feed', posts);
 
   useEffect(() => {
-    if (status === 'idle' && userStatus === 'success') {
+    if (status === 'idle' && user) {
       dispatch(fetchPosts());
     }
     if (status === 'failed') console.log(error);
-  }, [status, userStatus]);
+  }, []);
 
   return (
     <div className="border-r-2 border-l-2 border-gray-100 divide-y-8 divide-gray-100">
