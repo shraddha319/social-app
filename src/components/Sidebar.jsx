@@ -9,6 +9,7 @@ import {
   IconLabelButton,
   ListItemLink,
 } from './shared';
+import { ReactComponent as LogoIcon } from '../assets/logo.svg';
 import {
   HomeIcon,
   NotificationsIcon,
@@ -58,8 +59,8 @@ export default function Sidebar({ styles }) {
   return (
     <StyledSidebar className={styles}>
       <Logo>
-        <IconButton as="a" href="#" size="large" variant="primary">
-          <HomeIcon />
+        <IconButton as="a" href="#" variant="primary" className="text-xs">
+          <LogoIcon className="text-sm" />
         </IconButton>
       </Logo>
       <Navbar>
