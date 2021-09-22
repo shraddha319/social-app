@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { register, login } from './authAPI';
+import * as api from './authAPI';
 import { setUser } from '../user/userSlice';
+import API from '../api.config';
 
 export const loginUser = createAsyncThunk(
   'user/loginUser',
@@ -8,10 +9,12 @@ export const loginUser = createAsyncThunk(
     try {
       const {
         data: { data },
-      } = await login(user);
+      } = await api.login(user);
+      API.defaults.headers.common['Authorization'] = data.authToken;
+
       dispatch(setUser(data));
-      localStorage.setItem('userId', data.user._id);
-      localStorage.setItem('token', data.authToken);
+
+      localStorage.setItem('authToken', data.authToken);
       return data;
     } catch (err) {
       if (!err.response) {
@@ -26,7 +29,7 @@ export const registerUser = createAsyncThunk(
   'user/registerUser',
   async (user, { rejectWithValue, dispatch }) => {
     try {
-      await register(user);
+      await api.register(user);
       dispatch(loginUser({ email: user.email, password: user.password }));
       return;
     } catch (err) {
@@ -38,9 +41,8 @@ export const registerUser = createAsyncThunk(
   }
 );
 
-export const logoutUser = createAsyncThunk('user/logoutUser', () => {
-  localStorage.removeItem('token');
-  localStorage.removeItem('userId');
+export const logoutUser = createAsyncThunk('user/logoutUser', async () => {
+  localStorage.removeItem('authToken');
 });
 
 const authSlice = createSlice({
@@ -76,11 +78,12 @@ const authSlice = createSlice({
     },
     [loginUser.rejected]: (state, action) => {
       state.status = 'failed';
+      state.token = null;
       state.error = action.payload
         ? action.payload.error
         : action.error.message;
     },
-    [logoutUser.success]: (state, action) => {
+    [logoutUser.fulfilled]: (state, action) => {
       state.status = 'idle';
       state.error = null;
       state.token = null;
