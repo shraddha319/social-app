@@ -13,7 +13,11 @@ import {
   AiOutlineCamera as CameraIcon,
 } from 'react-icons/ai';
 
-import { IoImageOutline as ImageIcon } from 'react-icons/io5';
+import {
+  IoImageOutline as ImageIcon,
+  IoHeartOutline as HeartOutline,
+  IoHeartSharp as HeartSolid,
+} from 'react-icons/io5';
 
 import { GrEmoji as EmojiIcon } from 'react-icons/gr';
 import {
@@ -38,4 +42,6 @@ export {
   LinkIcon,
   CloseIcon,
   CameraIcon,
+  HeartOutline,
+  HeartSolid,
 };
