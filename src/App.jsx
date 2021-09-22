@@ -1,12 +1,21 @@
 import styled from 'styled-components';
 import tw from 'twin.macro';
-import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import {
+  Routes,
+  Route,
+  useLocation,
+  useNavigate,
+  Navigate,
+} from 'react-router-dom';
 import {
   Sidebar,
   Posts,
   IconButton,
   EditProfile,
   ComposeTweet,
+  PrivateRoute,
+  Loader,
+  ScrollToTop,
 } from './components';
 import {
   Feed,
@@ -16,12 +25,13 @@ import {
   Home,
   Login,
   Signup,
+  Post,
 } from './pages';
 import { ArrowBack } from './assets/icons';
 import './App.css';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { InitializeUser } from './features/user/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginUser } from './features/auth/authSlice';
 
 const AppLayout = styled.div`
   ${tw`mx-auto grid grid-cols-4`}
@@ -36,66 +46,77 @@ const TopBar = styled.div`
   ${tw`w-full sticky top-0 h-12 p-4 text-lg bg-white shadow flex items-center space-x-4 font-medium z-10`}
 `;
 
+function HomeRoute({ path, ...props }) {
+  const { token } = useSelector((state) => state.auth);
+
+  return !token ? <Route {...props} /> : <Navigate replace to="/feed" />;
+}
+
 export default function App() {
   const location = useLocation();
   const navigate = useNavigate();
   const query = new URLSearchParams(useLocation().search);
   const dispatch = useDispatch();
+  const { auth, user } = useSelector((state) => state);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    const userId = localStorage.getItem('userId');
-
-    if (userId && token) {
-      dispatch(InitializeUser({ userId, token }));
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      dispatch(loginUser({ authToken: token }));
     }
   }, []);
 
-  return (
+  return auth.status === 'loading' || !user ? (
+    <Loader />
+  ) : (
     <Routes>
-      <Route path="/" element={<Home />} />
+      <HomeRoute path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
-      <AppLayout>
-        <Sidebar styles="col-span-1" />
-        <Main className="no-scrollbar">
-          <TopBar>
-            {location.pathname !== '/feed' && (
-              <>
-                <IconButton
-                  onClick={(e) => navigate(-1)}
-                  variant="primary"
-                  size="small"
-                >
-                  <ArrowBack />
-                </IconButton>
-                <p>
-                  {location.pathname.slice(1).charAt(0).toUpperCase() +
-                    location.pathname.slice(2)}
-                </p>
-              </>
+      <ScrollToTop>
+        <AppLayout>
+          <Sidebar styles="col-span-1" />
+          <Main className="no-scrollbar">
+            <TopBar>
+              {location.pathname !== '/feed' && (
+                <>
+                  <IconButton
+                    onClick={(e) => navigate(-1)}
+                    variant="primary"
+                    size="small"
+                  >
+                    <ArrowBack />
+                  </IconButton>
+                  <p>
+                    {location.pathname.slice(1).charAt(0).toUpperCase() +
+                      location.pathname.slice(2)}
+                  </p>
+                </>
+              )}
+            </TopBar>
+            <Routes>
+              <PrivateRoute path="/feed" element={<Feed />} />
+              <PrivateRoute path="/feed/:postId" element={<Post />} />
+              <PrivateRoute path="/:username" element={<Profile />}>
+                <PrivateRoute path="" element={<Posts />} />
+                <PrivateRoute path="media" element={<Posts />} />
+                <PrivateRoute path="likes" element={<Posts />} />
+                <PrivateRoute path="bookmarks" element={<Posts />} />
+              </PrivateRoute>
+              <PrivateRoute path="/notifications" element={<Notifications />} />
+              <PrivateRoute path="/bookmarks" element={<Bookmarks />} />
+            </Routes>
+            {query.get('action') === 'edit' && (
+              <PrivateRoute path="/" element={<EditProfile />} />
             )}
-          </TopBar>
-          <Routes>
-            <Route path="/feed" element={<Feed />} />
-            <Route path="/:username" element={<Profile />}>
-              <Route path="" element={<Posts />} />
-              <Route path="media" element={<Posts />} />
-              <Route path="likes" element={<Posts />} />
-              <Route path="bookmarks" element={<Posts />} />
-            </Route>
-            <Route path="/notifications" element={<Notifications />} />
-            <Route path="/bookmarks" element={<Bookmarks />} />
-          </Routes>
-          {query.get('action') === 'edit' && (
-            <Route path="/" element={<EditProfile />} />
-          )}
-          {query.get('action') === 'compose_tweet' && (
-            <Route path="/" element={<ComposeTweet />} />
-          )}
-        </Main>
-        <div className="col-span-1">Side</div>
-      </AppLayout>
+            {query.get('action') === 'compose_tweet' && (
+              <PrivateRoute path="/" element={<ComposeTweet />} />
+            )}
+          </Main>
+
+          <div className="col-span-1"></div>
+        </AppLayout>
+      </ScrollToTop>
     </Routes>
   );
 }
