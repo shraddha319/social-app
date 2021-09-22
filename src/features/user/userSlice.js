@@ -24,26 +24,26 @@ export const updateProfile = createAsyncThunk(
   }
 );
 
-export const InitializeUser = createAsyncThunk(
-  'user/getUser',
-  async ({ userId, token }, { rejectWithValue, dispatch }) => {
-    try {
-      const {
-        data: { data },
-      } = await getUser(userId, token);
-      dispatch(setToken({ token }));
-      return data.user;
-    } catch (err) {
-      dispatch(logoutUser());
-      console.log(err, err.response);
-      useNavigate()('/');
-      if (!err.response) {
-        throw err;
-      }
-      return rejectWithValue(err.response.data);
-    }
-  }
-);
+// export const InitializeUser = createAsyncThunk(
+//   'user/getUser',
+//   async ({ userId, token }, { rejectWithValue, dispatch }) => {
+//     try {
+//       const {
+//         data: { data },
+//       } = await getUser(userId, token);
+//       dispatch(setToken({ token }));
+//       return data.user;
+//     } catch (err) {
+//       dispatch(logoutUser());
+//       console.log(err, err.response);
+//       useNavigate()('/');
+//       if (!err.response) {
+//         throw err;
+//       }
+//       return rejectWithValue(err.response.data);
+//     }
+//   }
+// );
 
 const userSlice = createSlice({
   name: 'user',
@@ -77,13 +77,13 @@ const userSlice = createSlice({
         ? action.payload.error
         : action.error.message;
     },
-    [InitializeUser.pending]: (state) => {
-      state.status = 'loading';
-    },
-    [InitializeUser.fulfilled]: (state, action) => {
-      state.status = 'success';
-      state.user = action.payload;
-    },
+    // [InitializeUser.pending]: (state) => {
+    //   state.status = 'loading';
+    // },
+    // [InitializeUser.fulfilled]: (state, action) => {
+    //   state.status = 'success';
+    //   state.user = action.payload;
+    // },
   },
 });
 
