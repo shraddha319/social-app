@@ -28,7 +28,7 @@ export default function Signup() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (status === 'failed' && error.statusCode === 400)
+    if (status === 'failed' && error?.statusCode === 400)
       setInputError(
         error.errors.reduce((errObj, { message, key, type }) => {
           return { ...errObj, [key]: message };

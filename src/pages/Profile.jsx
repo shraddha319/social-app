@@ -8,7 +8,7 @@ import {
   ListItemLink,
 } from '../components';
 import { LocationIcon, LinkIcon } from '../assets/icons';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getUserByUsername } from '../features/user/userAPI';
 
@@ -60,7 +60,7 @@ export default function Profile() {
   return (
     <div className="h-full relative">
       {status === 'loading' || loader || !profile ? (
-        <h1>Loading</h1>
+        <p>Loading...</p>
       ) : (
         <>
           <div className="w-full">

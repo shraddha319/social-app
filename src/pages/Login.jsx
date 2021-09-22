@@ -33,7 +33,7 @@ export default function Login() {
       setInputError({
         email: '',
         password: '',
-        login: 'Invalid username/password',
+        login: 'Invalid email/password',
       });
 
     if (status === 'success') {
@@ -50,7 +50,7 @@ export default function Login() {
         <Typography align="center" color="textPrimary" variant="h6" as="h1">
           Login
         </Typography>
-        <Typography color="error" variant="small" className="p-1">
+        <Typography color="error" variant="body" className="p-1">
           {inputError.login}
         </Typography>
         <Input>
@@ -64,7 +64,7 @@ export default function Login() {
           <label htmlFor="email" name="email">
             Email
           </label>
-          <Typography color="error" variant="small" className="p-1">
+          <Typography color="error" variant="body" className="p-1">
             {inputError.email}
           </Typography>
         </Input>
@@ -79,7 +79,7 @@ export default function Login() {
           <label htmlFor="password" name="password">
             Password
           </label>
-          <Typography color="error" variant="small" className="p-1">
+          <Typography color="error" variant="body" className="p-1">
             {inputError.password}
           </Typography>
         </Input>
