@@ -6,6 +6,7 @@ import { Modal } from './Modal';
 import { ListX, ListItem, ListItemLink } from './List';
 import { StyledLink } from './Link';
 import { Input, TextArea } from './Input';
+import Loader from './Loader';
 
 export {
   Icon,
@@ -23,4 +24,5 @@ export {
   StyledLink,
   Input,
   TextArea,
+  Loader,
 };
