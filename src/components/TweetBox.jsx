@@ -11,6 +11,7 @@ export default function TweetBox({ styles }) {
   const submitTweet = () => {
     if (tweet.length > 0) {
       dispatch(createPost({ text: tweet }));
+      setTweet('');
     }
   };
 
