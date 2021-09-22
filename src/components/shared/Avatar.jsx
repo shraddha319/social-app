@@ -13,15 +13,6 @@ const twAvatar = {
   },
 };
 
-const bg = [
-  tw`bg-red-500`,
-  tw`bg-green-500`,
-  tw`bg-yellow-500`,
-  tw`bg-blue-500`,
-  tw`bg-purple-500`,
-  tw`bg-pink-500`,
-];
-
 export const Avatar = styled.img(({ size, border, background }) => [
   tw`rounded-full object-cover`,
   twAvatar.size[size],
@@ -30,11 +21,9 @@ export const Avatar = styled.img(({ size, border, background }) => [
 ]);
 
 export const FallbackAvatar = styled.div(({ size, border }) => {
-  const index = Math.trunc(Math.random() * bg.length - 1);
   return [
-    tw`rounded-full flex justify-center items-center text-white cursor-default uppercase`,
+    tw`rounded-full flex justify-center items-center text-white cursor-default uppercase bg-gray-500`,
     twAvatar.size[size],
-    bg[index],
     border && tw`border-4 border-white`,
   ];
 });
