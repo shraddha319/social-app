@@ -1,4 +1,12 @@
-import { Button, Avatar, IconButton, Input, TextArea, Modal } from './shared';
+import {
+  Button,
+  Avatar,
+  IconButton,
+  Input,
+  TextArea,
+  Modal,
+  FallbackAvatar,
+} from './shared';
 import { CameraIcon } from '../assets/icons';
 import { useState, useMemo, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -59,7 +67,7 @@ export default function EditProfile() {
         <div className="relative w-full">
           <div className="relative">
             <img
-              src={fakeUser.coverUrl}
+              src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/c63a017911987.560b3fc509179.png"
               alt="cover"
               className="h-40 w-full object-fit filter brightness-75"
             />
@@ -73,7 +81,19 @@ export default function EditProfile() {
           </div>
           <div className="absolute right-0 left-3 top-32">
             <div className="relative">
-              <Avatar background src={fakeUser.imageUrl} size="xl" />
+              {user?.imageUrl ? (
+                <Avatar
+                  background
+                  src={user?.imageUrl}
+                  alt="shraddha"
+                  size="xl"
+                />
+              ) : (
+                <FallbackAvatar background size="xl">
+                  {user.username[0]}
+                </FallbackAvatar>
+              )}
+              {/* <Avatar background src={fakeUser.imageUrl} size="xl" /> */}
               <IconButton
                 className="absolute top-5 left-5"
                 size="small"
