@@ -1,21 +1,13 @@
-import axios from 'axios';
+import API from '../api.config';
 
 export const updateUser = (userId, token, update) => {
-  return axios.post(`http://localhost:3001/users/${userId}`, update, {
-    headers: {
-      Authorization: token,
-    },
-  });
+  return API.post(`/users/${userId}`, update);
 };
 
 export const getUserByUsername = (username) => {
-  return axios.get(`http://localhost:3001/users?username=${username}`);
+  return API.get(`/users?username=${username}`);
 };
 
 export const getUser = (userId, token) => {
-  return axios.get(`http://localhost:3001/users/${userId}`, {
-    headers: {
-      Authorization: token,
-    },
-  });
+  return API.get(`/users/${userId}`);
 };
