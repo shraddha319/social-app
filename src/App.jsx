@@ -150,10 +150,24 @@ export default function App() {
         />
       </Routes>
       {query.get('action') === 'edit' && (
-        <PrivateRoute path="/" element={<EditProfile />} />
+        <PrivateRoute
+          path="/"
+          element={
+            <Layout>
+              <EditProfile />
+            </Layout>
+          }
+        />
       )}
       {query.get('action') === 'compose_tweet' && (
-        <PrivateRoute path="/" element={<ComposeTweet />} />
+        <PrivateRoute
+          path="/"
+          element={
+            <Layout>
+              <ComposeTweet />
+            </Layout>
+          }
+        />
       )}
 
       <div className="col-span-1"></div>
