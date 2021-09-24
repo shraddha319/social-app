@@ -66,57 +66,97 @@ export default function App() {
     }
   }, []);
 
+  function Layout({ children }) {
+    return (
+      <AppLayout>
+        <Sidebar styles="col-span-1" />
+        <Main className="no-scrollbar">
+          <TopBar>
+            {location.pathname !== '/feed' && (
+              <>
+                <IconButton
+                  onClick={(e) => navigate(-1)}
+                  variant="primary"
+                  size="small"
+                >
+                  <ArrowBack />
+                </IconButton>
+                <p>
+                  {location.pathname.slice(1).charAt(0).toUpperCase() +
+                    location.pathname.slice(2)}
+                </p>
+              </>
+            )}
+          </TopBar>
+          {children}
+        </Main>
+      </AppLayout>
+    );
+  }
+
   return auth.status === 'loading' || !user ? (
     <Loader />
   ) : (
-    <Routes>
-      <HomeRoute path="/" element={<Home />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup />} />
-      <ScrollToTop>
-        <AppLayout>
-          <Sidebar styles="col-span-1" />
-          <Main className="no-scrollbar">
-            <TopBar>
-              {location.pathname !== '/feed' && (
-                <>
-                  <IconButton
-                    onClick={(e) => navigate(-1)}
-                    variant="primary"
-                    size="small"
-                  >
-                    <ArrowBack />
-                  </IconButton>
-                  <p>
-                    {location.pathname.slice(1).charAt(0).toUpperCase() +
-                      location.pathname.slice(2)}
-                  </p>
-                </>
-              )}
-            </TopBar>
-            <Routes>
-              <PrivateRoute path="/feed" element={<Feed />} />
-              <PrivateRoute path="/feed/:postId" element={<Post />} />
-              <PrivateRoute path="/:username" element={<Profile />}>
-                <PrivateRoute path="" element={<Posts />} />
-                <PrivateRoute path="media" element={<Posts />} />
-                <PrivateRoute path="likes" element={<Posts />} />
-                <PrivateRoute path="bookmarks" element={<Posts />} />
-              </PrivateRoute>
-              <PrivateRoute path="/notifications" element={<Notifications />} />
-              <PrivateRoute path="/bookmarks" element={<Bookmarks />} />
-            </Routes>
-            {query.get('action') === 'edit' && (
-              <PrivateRoute path="/" element={<EditProfile />} />
-            )}
-            {query.get('action') === 'compose_tweet' && (
-              <PrivateRoute path="/" element={<ComposeTweet />} />
-            )}
-          </Main>
+    <ScrollToTop>
+      <Routes>
+        <HomeRoute path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
 
-          <div className="col-span-1"></div>
-        </AppLayout>
-      </ScrollToTop>
-    </Routes>
+        <PrivateRoute
+          path="/feed"
+          element={
+            <Layout>
+              <Feed />
+            </Layout>
+          }
+        />
+        <PrivateRoute
+          path="/feed/:postId"
+          element={
+            <Layout>
+              <Post />
+            </Layout>
+          }
+        />
+        <PrivateRoute
+          path="/:username"
+          element={
+            <Layout>
+              <Profile />
+            </Layout>
+          }
+        >
+          <PrivateRoute path="" element={<Posts />} />
+          <PrivateRoute path="media" element={<Posts />} />
+          <PrivateRoute path="likes" element={<Posts />} />
+          <PrivateRoute path="bookmarks" element={<Posts />} />
+        </PrivateRoute>
+        <PrivateRoute
+          path="/notifications"
+          element={
+            <Layout>
+              <Notifications />
+            </Layout>
+          }
+        />
+        <PrivateRoute
+          path="/bookmarks"
+          element={
+            <Layout>
+              <Bookmarks />
+            </Layout>
+          }
+        />
+      </Routes>
+      {query.get('action') === 'edit' && (
+        <PrivateRoute path="/" element={<EditProfile />} />
+      )}
+      {query.get('action') === 'compose_tweet' && (
+        <PrivateRoute path="/" element={<ComposeTweet />} />
+      )}
+
+      <div className="col-span-1"></div>
+    </ScrollToTop>
   );
 }
