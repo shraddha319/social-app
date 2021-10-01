@@ -81,10 +81,6 @@ export default function App() {
                 >
                   <ArrowBack />
                 </IconButton>
-                <p>
-                  {location.pathname.slice(1).charAt(0).toUpperCase() +
-                    location.pathname.slice(2)}
-                </p>
               </>
             )}
           </TopBar>
