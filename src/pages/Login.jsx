@@ -17,7 +17,7 @@ export default function Login() {
     password: '',
   });
   const dispatch = useDispatch();
-  const { status, error, token } = useSelector((state) => state.auth);
+  const { status, error } = useSelector((state) => state.auth);
   const navigate = useNavigate();
 
   function loginHandler() {
@@ -28,8 +28,16 @@ export default function Login() {
     }
   }
 
+  function testLoginHandler() {
+    const credentials = {
+      email: process.env.REACT_APP_TEST_EMAIL,
+      password: process.env.REACT_APP_TEST_PASSWORD,
+    };
+    if (status === 'idle') dispatch(loginUser(credentials));
+  }
+
   useEffect(() => {
-    if (status === 'failed' && error.statusCode === 401)
+    if (status === 'failed')
       setInputError({
         email: '',
         password: '',
@@ -47,7 +55,7 @@ export default function Login() {
         className="w-80 space-y-8 p-6 border-gray-300 border-2 rounded-lg"
         onSubmit={(e) => e.preventDefault()}
       >
-        <Typography align="center" color="textPrimary" variant="h6" as="h1">
+        <Typography align="center" color="textPrimary" variant="h5" as="h1">
           Login
         </Typography>
         <Typography color="error" variant="body" className="p-1">
@@ -83,20 +91,32 @@ export default function Login() {
             {inputError.password}
           </Typography>
         </Input>
-        <Button
-          type="submit"
-          fullWidth
-          rounded
-          variant="solidPrimary"
-          size="large"
-          onClick={loginHandler}
-        >
-          {status === 'loading' ? 'Loading...' : 'Log In'}
-        </Button>
+        <div className="space-y-3">
+          <Button
+            type="submit"
+            fullWidth
+            rounded
+            variant="solidPrimary"
+            size="large"
+            onClick={loginHandler}
+          >
+            {status === 'loading' ? 'Loading...' : 'Log In'}
+          </Button>
+          <Button
+            type="submit"
+            fullWidth
+            rounded
+            variant="outlinePrimary"
+            size="large"
+            onClick={testLoginHandler}
+          >
+            {status === 'loading' ? 'Loading...' : 'Guest Login'}
+          </Button>
+        </div>
         <p className="space-x-2 flex justify-center text-blue-500">
           <StyledLink to="/">Forgot password?</StyledLink>
           <span>&#8226;</span>
-          <StyledLink to="/">Sign up</StyledLink>
+          <StyledLink to="/signup">Sign up</StyledLink>
         </p>
       </form>
     </div>
