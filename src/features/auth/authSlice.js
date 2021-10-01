@@ -4,15 +4,16 @@ import { setUser } from '../user/userSlice';
 import API from '../api.config';
 
 export const loginUser = createAsyncThunk(
-  'user/loginUser',
+  'auth/loginUser',
   async (user, { rejectWithValue, dispatch }) => {
+    console.log(user);
     try {
       const {
         data: { data },
       } = await api.login(user);
       API.defaults.headers.common['Authorization'] = data.authToken;
 
-      dispatch(setUser(data));
+      dispatch(setUser({ user: data.user }));
 
       localStorage.setItem('authToken', data.authToken);
       return data;
@@ -26,12 +27,12 @@ export const loginUser = createAsyncThunk(
 );
 
 export const registerUser = createAsyncThunk(
-  'user/registerUser',
+  'auth/registerUser',
   async (user, { rejectWithValue, dispatch }) => {
     try {
-      await api.register(user);
-      dispatch(loginUser({ email: user.email, password: user.password }));
-      return;
+      const { status } = await api.register(user);
+      if (status === 201)
+        dispatch(loginUser({ email: user.email, password: user.password }));
     } catch (err) {
       if (!err.response) {
         throw err;
@@ -41,12 +42,8 @@ export const registerUser = createAsyncThunk(
   }
 );
 
-export const logoutUser = createAsyncThunk('user/logoutUser', async () => {
-  localStorage.removeItem('authToken');
-});
-
 const authSlice = createSlice({
-  name: 'user',
+  name: 'auth',
   initialState: {
     status: 'idle',
     token: null,
@@ -56,6 +53,12 @@ const authSlice = createSlice({
     setToken: (state, action) => {
       state.status = 'success';
       state.token = action.payload.token;
+    },
+
+    resetAuth: (state) => {
+      state.status = 'idle';
+      state.token = null;
+      state.error = null;
     },
   },
   extraReducers: {
@@ -83,13 +86,8 @@ const authSlice = createSlice({
         ? action.payload.error
         : action.error.message;
     },
-    [logoutUser.fulfilled]: (state, action) => {
-      state.status = 'idle';
-      state.error = null;
-      state.token = null;
-    },
   },
 });
 
-export const { setToken } = authSlice.actions;
+export const { setToken, resetAuth } = authSlice.actions;
 export default authSlice.reducer;

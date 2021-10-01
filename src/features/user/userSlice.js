@@ -1,7 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { updateUser, getUser } from './userAPI';
-import { logoutUser, setToken } from '../auth/authSlice';
-import { useNavigate } from 'react-router-dom';
+import { updateUser } from './userAPI';
 
 export const updateProfile = createAsyncThunk(
   'user/updateProfile',
@@ -24,27 +22,6 @@ export const updateProfile = createAsyncThunk(
   }
 );
 
-// export const InitializeUser = createAsyncThunk(
-//   'user/getUser',
-//   async ({ userId, token }, { rejectWithValue, dispatch }) => {
-//     try {
-//       const {
-//         data: { data },
-//       } = await getUser(userId, token);
-//       dispatch(setToken({ token }));
-//       return data.user;
-//     } catch (err) {
-//       dispatch(logoutUser());
-//       console.log(err, err.response);
-//       useNavigate()('/');
-//       if (!err.response) {
-//         throw err;
-//       }
-//       return rejectWithValue(err.response.data);
-//     }
-//   }
-// );
-
 const userSlice = createSlice({
   name: 'user',
 
@@ -58,6 +35,12 @@ const userSlice = createSlice({
     setUser: (state, action) => {
       state.user = action.payload.user;
     },
+
+    resetUser: (state) => {
+      state.status = 'idle';
+      state.user = null;
+      state.error = null;
+    },
   },
 
   extraReducers: {
@@ -66,7 +49,6 @@ const userSlice = createSlice({
     },
     [updateProfile.fulfilled]: (state, action) => {
       Object.keys(action.payload).forEach((field) => {
-        console.log(field, state.user[field], action.payload[field]);
         state.user[field] = action.payload[field];
       });
       state.status = 'success';
@@ -77,15 +59,8 @@ const userSlice = createSlice({
         ? action.payload.error
         : action.error.message;
     },
-    // [InitializeUser.pending]: (state) => {
-    //   state.status = 'loading';
-    // },
-    // [InitializeUser.fulfilled]: (state, action) => {
-    //   state.status = 'success';
-    //   state.user = action.payload;
-    // },
   },
 });
 
+export const { setUser, resetUser } = userSlice.actions;
 export default userSlice.reducer;
-export const { setUser } = userSlice.actions;

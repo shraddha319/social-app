@@ -97,7 +97,13 @@ const postsSlice = createSlice({
     error: null,
   },
 
-  reducers: {},
+  reducers: {
+    resetPosts: (state) => {
+      state.status = 'idle';
+      state.posts = [];
+      state.error = null;
+    },
+  },
 
   extraReducers: {
     [fetchPosts.pending]: (state) => {
@@ -159,3 +165,4 @@ const postsSlice = createSlice({
 });
 
 export default postsSlice.reducer;
+export const { resetPosts } = postsSlice.actions;
