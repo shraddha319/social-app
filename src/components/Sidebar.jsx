@@ -54,12 +54,17 @@ const Logo = styled.div`
 
 export default function Sidebar({ styles }) {
   const { pathname } = useLocation();
-  const { user } = useSelector((state) => state.user);
+  const { user, auth } = useSelector(({ user, auth }) => ({ user, auth }));
 
   return (
     <StyledSidebar className={styles}>
       <Logo>
-        <IconButton as="a" href="#" variant="primary" className="text-xs">
+        <IconButton
+          as="a"
+          href={auth.token ? '/feed' : '/'}
+          variant="primary"
+          className="text-xs"
+        >
           <LogoIcon className="text-sm" />
         </IconButton>
       </Logo>
@@ -108,7 +113,7 @@ export default function Sidebar({ styles }) {
           <ListItem>
             <ListItemLink
               end
-              to={`/${user?.username}`}
+              to={`/${user?.user.username}`}
               activeClassName="selected"
             >
               <IconLabelButton as="div">
